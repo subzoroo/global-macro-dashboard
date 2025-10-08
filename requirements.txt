@@ -8,4 +8,5 @@ datetime
 matplotlib
 seaborn
 numpy
-
+setuptools
+wheel
