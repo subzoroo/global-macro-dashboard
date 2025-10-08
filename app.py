@@ -58,3 +58,32 @@ else:
     fig = px.line(combined_data, x=combined_data.index, y=combined_data.columns,
                   title="Core Macro Overview", markers=True)
     st.plotly_chart(fig, use_container_width=True)
+import yfinance as yf
+import plotly.graph_objects as go
+
+st.header("Level 2 — Cross Market Analysis")
+# Ambil data S&P500 dan DXY (Dollar Index)
+sp500 = yf.download("^GSPC", period="6mo")
+dxy = yf.download("DX-Y.NYB", period="6mo")
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=sp500.index, y=sp500['Close'], name='S&P 500'))
+fig.add_trace(go.Scatter(x=dxy.index, y=dxy['Close'], name='US Dollar Index'))
+fig.update_layout(title="S&P 500 vs Dollar Index (Risk On / Risk Off)")
+st.plotly_chart(fig)
+
+st.header("Level 3 — Liquidity & Positioning")
+# Ambil data VIX dan M2 Money Supply
+vix = yf.download("^VIX", period="6mo")
+m2 = pdr.get_data_fred("M2SL")
+
+fig2 = go.Figure()
+fig2.add_trace(go.Scatter(x=vix.index, y=vix['Close'], name='VIX Volatility Index'))
+fig2.add_trace(go.Scatter(x=m2.index, y=m2['M2SL'], name='Money Supply (M2)', yaxis='y2'))
+
+fig2.update_layout(
+    title="Volatility (VIX) vs Money Supply (M2)",
+    yaxis=dict(title="VIX"),
+    yaxis2=dict(title="M2", overlaying='y', side='right')
+)
+st.plotly_chart(fig2)
