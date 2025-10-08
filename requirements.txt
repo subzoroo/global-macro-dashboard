@@ -5,3 +5,7 @@ pandas_datareader
 yfinance
 requests
 datetime
+matplotlib
+seaborn
+numpy
+
