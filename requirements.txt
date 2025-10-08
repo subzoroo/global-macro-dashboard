@@ -1,6 +1,7 @@
 streamlit
 pandas
-numpy
-requests
-yfinance
 plotly
+pandas_datareader
+yfinance
+requests
+datetime
